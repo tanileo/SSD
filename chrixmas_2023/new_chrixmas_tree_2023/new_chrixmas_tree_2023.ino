@@ -11,6 +11,7 @@ int py[2]={4, 16};       // LED cathode側：上からの並び
 //プロトタイプ宣言
 void pattern_change(void);
 void h_create(int n);
+void light(int current_btn);
 
 
 void setup() {
