@@ -4,6 +4,7 @@
 #define NUM 1000
 #define INPUTpin 4
 #define OUTPUTpin 5
+#define a 2
 
 int wave[NUM];
  int wave_cut[NUM];
