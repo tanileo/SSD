@@ -1,10 +1,10 @@
 #define ANALOG_RANGE 500
-#define PATTERN_PIN 15
+#define PATTERN 15
 #define SLEEP_TIME 30000
 
 //グローバル変数
 int past_time, current_time;
-int current_pattern = 1;
+int current_pattern = 0;
 int px[3]={12, 5, 13};   // LED anode側：左からの並び
 int py[2]={4, 16};       // LED cathode側：上からの並び
 
@@ -35,7 +35,7 @@ void setup() {
 
 void loop() {
   if(current_time - past_time < SLEEP_TIME){ //秒数が30秒以内の場合イルミネーションを光らせる
-    h_create();
+    light(current_pattern);
   }else{　//秒数が30秒を超えたらイルミネーションの光をOFFにする
     //照度センサのモニタリングの開始
     if(){
@@ -51,4 +51,12 @@ void loop() {
   }
   //現在の秒数の取得
   current_time = millis();
+}
+
+void light(int current_btn){
+  
+  int i;
+  for(i=0; i<){
+
+  }
 }
