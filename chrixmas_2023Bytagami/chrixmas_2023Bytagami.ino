@@ -15,19 +15,20 @@
 #define L2 24
 #define L3 23
 
+
 // プロトタイプ宣言
 void h_create(int n);
-void position_level(int pattern[][2][3], int n);
-void light(int x, int y);
-void analog_light_plus(int x, int y, int henka);
-void analog_light_minas(int x, int y, int henka);
+void position_level(int pattern[][1][3], int n);
+void light(int x);
+void analog_light_plus(int x, int henka);
+void analog_light_minas(int x, int henka);
 
 // グローバル変数
 int px[3]={L1, L2, L3};   // LED anode側：左からの並び
 int py[2]={4, 16};       // LED cathode側：上からの並び
-int pattern1[REP][2][3]={{{1,1,1},{1,1,1}}, {{1,0,1},{0,1,0}}, {{1,1,0},{1,0,1}}, {{1,0,1},{0,1,0}}, {{1,1,0},{1,0,1}}};
-int pattern2[REP][2][3]={{{1,1,1},{1,1,1}}, {{1,0,0},{1,0,0}}, {{0,1,0},{0,1,0}}, {{0,0,1},{0,0,1}}, {{1,1,1},{1,1,1}}};
-int create_h[REP][2][3];
+int pattern1[REP][1][3]={{1,1,1}, {1,0,1}, {1,0,0}, {0,1,0}, {0,0,1}};
+int pattern2[REP][1][3]={{1,1,1}, {1,0,1}, {1,1,0}, {1,0,1}, {1,1,0}};
+int create_h[REP][1][3];
 int current_pattern = 1;
 int flag=0;
 
@@ -37,7 +38,7 @@ void h_create(int n){
   switch(n){
     case 1:
       for(i=0; i<REP; i++){            // 光るパターンを代入し、position_level関数に渡す
-        for(j=0; j<2; j++){
+        for(j=0; j<1; j++){
           for(k=0; k<3; k++){
             create_h[i][j][k] = pattern1[i][j][k];    // 光るパターン代入
           }
@@ -46,7 +47,7 @@ void h_create(int n){
     break;
     case 2:
       for(i=0; i<REP; i++){            // 光るパターンを代入し、position_level関数に渡す
-        for(j=0; j<2; j++){
+        for(j=0; j<1; j++){
           for(k=0; k<3; k++){
             create_h[i][j][k] = pattern2[i][j][k];    // 光るパターン代入
           }
@@ -57,18 +58,18 @@ void h_create(int n){
   position_level(create_h, REP);
 }
 
-void position_level(int pattern[][2][3], int n){       // create_hから渡された配列の1と0を判断して光らせるか光らせないか判断する光らす場合はlightのどれかに渡す
+void position_level(int pattern[][1][3], int n){       // create_hから渡された配列の1と0を判断して光らせるか光らせないか判断する光らす場合はlightのどれかに渡す
 
   for(i=0; i<REP; i++){                  //少しずつ光量をあげる
     if(flag){
       flag=0;
        break;
     }
-    for(m=0; m<ANALOG_NUM*4; m++){
+    for(m=0; m<ANALOG_NUM*3; m++){
       if(flag){
         break;
       }
-        for(k=0; k<2; k++){
+        for(k=0; k<1; k++){
           if(flag){
               break;
             }
@@ -83,7 +84,7 @@ void position_level(int pattern[][2][3], int n){       // create_hから渡さ�
                 m*=2;
               }
               //ESP.wdtFeed();
-              analog_light_plus(px[l], py[k], m);
+              analog_light_plus(px[l], m);
               if(px[l]==5){
                 m-=400;
               }else{
@@ -101,7 +102,7 @@ void position_level(int pattern[][2][3], int n){       // create_hから渡さ�
       if(flag){
         break;
       }
-        for(k=0; k<2; k++){
+        for(k=0; k<1; k++){
           if(flag){
             break;
           }
@@ -111,7 +112,7 @@ void position_level(int pattern[][2][3], int n){       // create_hから渡さ�
             }
             if(pattern[i][k][l]==1){
              // ESP.wdtFeed();
-              light(px[l], py[k]);
+              light(px[l]);
             }else{
               delay(TIME);
             }
@@ -137,7 +138,7 @@ void position_level(int pattern[][2][3], int n){       // create_hから渡さ�
                 m*=2;
               }
              // ESP.wdtFeed();
-              analog_light_minas(px[l], py[k], m);
+              analog_light_minas(px[l], m);
               if(px[l]==12||px[l]==13){
                 m/=2;
               }
@@ -152,7 +153,7 @@ void position_level(int pattern[][2][3], int n){       // create_hから渡さ�
 }
 
 // On or Off
-void light(int x, int y){
+void light(int x){
   int volt_set=0;
  if(px[l]==12||px[l]==13){
   volt_set=10;
@@ -168,7 +169,7 @@ void light(int x, int y){
   //digitalWrite(y, HIGH);        // LED cathode:Low
 }
 // 明るさが変化
-void analog_light_plus(int x, int y, int henka){
+void analog_light_plus(int x,int henka){
   Serial.print("plus");
   Serial.print(x);Serial.print(" ");
   Serial.print( henka );
@@ -181,7 +182,7 @@ void analog_light_plus(int x, int y, int henka){
 }
 
 // 明るさが変化
-void analog_light_minas(int x, int y, int henka){
+void analog_light_minas(int x, int henka){
   Serial.print("minas");
   Serial.print(x);Serial.print(" ");
   Serial.print( ANALOG_NUM_MAX-henka );
