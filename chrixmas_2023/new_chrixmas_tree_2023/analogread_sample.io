@@ -1,5 +1,5 @@
-const int photoResistorPin = A0;  // フォトトランジスタのピン
-const int ledPins[] = {3, 5, 6, 9, 10, 11};  // LEDのピン
+const int photoResistorPin = 28;  // フォトトランジスタのピン
+const int ledPins[] = {1,29,14,15,17,16};  // LEDのピン
 
 void setup() {
   Serial.begin(9600);
