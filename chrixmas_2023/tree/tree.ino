@@ -8,12 +8,13 @@ const int fadeInDelay = 1000;  // フェードインの遅延時間
 const int fadeOutDelay = 1000;  // フェードアウトの遅延時間
 const int pattern_num1 = 6;
 const int pattern_num2 = 6;
-const int pattern_num = 2;
+const int pattern_num = 3;
 int current_pattern = 0;
 int sensorValue;
 int maxBrightness;
 int pattern[pattern_num][pattern_num1][pattern_num2] = {{{1, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0}, {0, 0, 0, 1, 0, 0}, {0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 1}},
-                                                        {{1, 1, 0, 0, 0, 0}, {0, 1, 1, 0, 0, 0}, {0, 0, 1, 1, 0, 0}, {0, 0, 0, 1, 1, 0}, {0, 0, 0, 0, 1, 1}, {1, 0, 0, 0, 0, 1}}};
+                                                        {{1, 1, 0, 0, 0, 0}, {0, 1, 1, 0, 0, 0}, {0, 0, 1, 1, 0, 0}, {0, 0, 0, 1, 1, 0}, {0, 0, 0, 0, 1, 1}, {1, 0, 0, 0, 0, 1}},
+                                                        {{0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 1, 0}, {0, 0, 0, 1, 0, 0}, {0, 0, 1, 0, 0, 0}, {0, 1, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 0}}};
 
 
 void setup() {
@@ -68,20 +69,20 @@ void fadeIn() {
   }
 }
 
-void fadeOut() {
-  for (int i = 0; i < 6; i++){
-    for (int brightness = maxBrightness; brightness >= 0; brightness--) {
-      int stepDelay = fadeOutTime / (maxBrightness + 1);  // 各ステップごとの待ち時間
-      for (int j = 0; j < 6; j++) {
-        if(pattern[current_pattern][i][j]){
-          analogWrite(ledPins[j], brightness);
-        }
-        delayMicroseconds(stepDelay);
-        judge_photo();
-      }
-    }
-  }
-}
+// void fadeOut() {
+//   for (int i = 0; i < 6; i++){
+//     for (int brightness = maxBrightness; brightness >= 0; brightness--) {
+//       int stepDelay = fadeOutTime / (maxBrightness + 1);  // 各ステップごとの待ち時間
+//       for (int j = 0; j < 6; j++) {
+//         if(pattern[current_pattern][i][j]){
+//           analogWrite(ledPins[j], brightness);
+//         }
+//         delayMicroseconds(stepDelay);
+//         judge_photo();
+//       }
+//     }
+//   }
+// }
 
 void judge_photo(void){
   int slide = analogRead(slidePin);
