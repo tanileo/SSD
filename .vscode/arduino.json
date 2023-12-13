@@ -1,4 +1,11 @@
 {
+<<<<<<< HEAD
     "board": "arduino:mbed_rp2040:pico",
     "sketch": "chrixmas_2023\\new_chrixmas_tree_2023\\new_chrixmas_tree_2023.ino"
+=======
+    "configuration": "flash=2097152_0,freq=133,opt=Small,rtti=Disabled,stackprotect=Disabled,exceptions=Disabled,dbgport=Disabled,dbglvl=None,usbstack=picosdk,ipbtstack=ipv4only,uploadmethod=default",
+    "board": "rp2040:rp2040:rpipico",
+    "sketch": "chrixmas_2023Bytagami\\chrixmas_2023Bytagami.ino",
+    "port": "COM4"
+>>>>>>> db84a06d7920bc19d2e9126c4d2437c9fd5b9bb1
 }

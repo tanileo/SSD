@@ -60,3 +60,12 @@ void light(int current_btn){
 
   }
 }
+
+void pattern_change(){
+  int i;
+  current_pattern++;
+  if(current_pattern == ){
+    current_pattern = 0;
+  }
+  h_num = sizeof();
+}
