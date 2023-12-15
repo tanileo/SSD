@@ -1,5 +1,5 @@
 const int photoResistorPin = 28;  // フォトトランジスタのピン
-const int slidePin = 22;  // フォトトランジスタ　オンオフのボタン
+const int slidePin = 21;  // フォトトランジスタ　オンオフのボタン
 const int pattern_pin = 19;  // フォトトランジスタ　オンオフのボタン
 const int ledPins[] = {2, 29, 14, 15, 17, 16};  // LEDのピン
 const int fadeInTime = 150000;  // フェードインの時間 (0 から 4095)
@@ -27,16 +27,16 @@ void setup() {
   analogWriteResolution(12);
   pinMode(pattern_pin, INPUT_PULLUP);
   pinMode(slidePin, INPUT_PULLUP);
-  attachInterrupt(pattern_pin, change_pattern, FALLING);
+  attachInterrupt(pattern_pin, change_pattern, CHANGE);
 }
 
 void loop() {
   judge_photo();
 
-  Serial.print("Sensor Value: ");
-  Serial.print(sensorValue);
-  Serial.print(" - Max Brightness: ");
-  Serial.println(maxBrightness);
+  // Serial.print("Sensor Value: ");
+  // Serial.print(sensorValue);
+  // Serial.print(" - Max Brightness: ");
+  // Serial.println(maxBrightness);
 
   fadeIn();  // フェードイン
   // delay(fadeInDelay);
@@ -64,32 +64,21 @@ void fadeIn() {
         }
       }
       delayMicroseconds(stepDelay);
+      Serial.print("judge photo");
       judge_photo();
     }
   }
 }
 
-// void fadeOut() {
-//   for (int i = 0; i < 6; i++){
-//     for (int brightness = maxBrightness; brightness >= 0; brightness--) {
-//       int stepDelay = fadeOutTime / (maxBrightness + 1);  // 各ステップごとの待ち時間
-//       for (int j = 0; j < 6; j++) {
-//         if(pattern[current_pattern][i][j]){
-//           analogWrite(ledPins[j], brightness);
-//         }
-//         delayMicroseconds(stepDelay);
-//         judge_photo();
-//       }
-//     }
-//   }
-// }
 
 void judge_photo(void){
   int slide = analogRead(slidePin);
   if(slide == 0){
-    sensorValue = analogRead(photoResistorPin);  // フォトトランジスタの値を読み取る
-    maxBrightness = map(sensorValue, 0, 1023, 0, 4095);  // フォトトランジスタの値をLEDの最大値にマップ
-  }else if(slide == 1){
+    // スライディングスイッチがオフの場合の処理
+    sensorValue = analogRead(photoResistorPin);
+    maxBrightness = map(sensorValue, 0, 1023, 0, 4095);
+  } else if(slide == 1){
+    // スライディングスイッチがオンの場合の処理
     maxBrightness = 4095;
   }
 }
