@@ -2,6 +2,7 @@ const int photoResistorPin = 28;  // フォトトランジスタのピン
 const int ledPin = 2;  // LEDのピン
 
 void setup() {
+  Serial.begin(9600);
   pinMode(ledPin , OUTPUT);
 }
 
