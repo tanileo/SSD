@@ -1,3 +1,5 @@
+#define PUSH_BUTTON 21
+
 const int pinA[7] = {14, 27, 4, 2, 15, 12, 13};
 const int pinB[7] = {33, 32, 17, 5, 16, 25, 26};
 
@@ -26,6 +28,10 @@ void light(int num) {
   }
   
 }
+void push() {
+  // Serial.print("push");
+  push_status = 1;
+}
 
 void setup() {
   int i;
@@ -35,6 +41,8 @@ void setup() {
     digitalWrite(pinA[i], HIGH);
     digitalWrite(pinB[i], HIGH);
   }
+  pinMode(PUSH_BUTTON, INPUT_PULLUP);
+  attachInterrupt(PUSH_BUTTON, push, FALLING);
 
 }
 
