@@ -47,6 +47,23 @@ datetime_t currTime = { 2024, 7, 6, 5, 5, 0, 0 };
 bool angle = false;
 bool toggle = false;
 
+//pin設定
+int seg_pin[7] = {12, 10, 13, 7, 5, 14, 11};
+int nodePin = {9, 8, 4, 2};
+int dpPin = 7;
+
+const byte pattern[10] = {
+  B00111111, // 0
+  B00000110, // 1
+  B01011011, // 2
+  B01001111, // 3
+  B01100110, // 4
+  B01101101, // 5
+  B01111101, // 6
+  B00100111, // 7
+  B01111111, // 8
+  B01101111  // 9
+};
 
 
 //////////////////////////////////////////
@@ -157,6 +174,40 @@ void timer(){
 
 }
 
+void printNum4(int number){
+  int i,j;
+  int num[4]; 
+  num[3] = number / 1000;
+  num[2] = (number % 1000) / 100;
+  num[1] = (number % 100) / 10;
+  num[0] = number % 10;
+
+  for(i=0; i<4; i++){
+    digitalWrite(nodePin[i], 1)
+    for(j=0; j<7; j++){
+      digitalWrite(segPin[j], !bitRead(pattern[num[i]], j));
+    }
+    digitalWrite(nodePin[i], 0)
+  }
+}
+
+void printNum(int num4, int num3, int num2, int num1){
+  int i,j;
+  int num[4]; 
+  num[3] = num4;
+  num[2] = num3;
+  num[1] = num2;
+  num[0] = num1;
+
+  for(i=0; i<4; i++){
+    digitalWrite(nodePin[i], 1)
+    for(j=0; j<7; j++){
+      digitalWrite(segPin[j], !bitRead(pattern[num[i]], j));
+    }
+    digitalWrite(nodePin[i], 0)
+  }
+}
+
 
 void temp(){
 
@@ -180,7 +231,7 @@ void loop()
   if(mode == 0 ){
     clock();
   } else if(mode == 1){
-    temp()
+    temp();
   } else if(mode == 2){
     slot();
   }else if(mode == 3){
