@@ -48,6 +48,11 @@ public:
     void tempRun();
     void clockRun();
 
+    Mode mode1;
+    Mode mode2;
+    Mode mode3;
+    Mode mode4;
+
 private:
     Display display;
     TemperatureHumidity tempHumid;

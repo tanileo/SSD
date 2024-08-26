@@ -3,7 +3,7 @@
 SmartClock *SmartClock::instance = nullptr;
 
 SmartClock::SmartClock()
-  : currentMode(Mode::CLOCK), pastMode(Mode::CLOCK), angle(false), pastAngle(false), toggle(false), chattaringTime(0) {
+  : currentMode(Mode::CLOCK), pastMode(Mode::CLOCK), mode1(Mode::CLOCK), mode2(Mode::CLOCK), mode3(Mode::CLOCK), mode4(Mode::CLOCK), angle(false), pastAngle(false), toggle(false), chattaringTime(0) {
   instance = this;
 }
 
@@ -208,15 +208,15 @@ void SmartClock::changeMode() {
   toggle = digitalRead(TGS);
   if (toggle) {
     if (angle) {
-      currentMode = Mode::CLOCK;
+      currentMode = mode1;
     } else {
-      currentMode = Mode::TEMPERATURE;
+      currentMode = mode2;
     }
   } else {
     if (angle) {
-      currentMode = Mode::FLASH_CALCULATION;
+      currentMode = mode3;
     } else {
-      currentMode = Mode::SLOT;
+      currentMode = mode4;
     }
   }
   selectInit();
