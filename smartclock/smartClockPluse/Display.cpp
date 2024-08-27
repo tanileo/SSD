@@ -338,13 +338,31 @@ void Display::printClockSetting(int hour2, int hour1, int minute2, int minute1, 
       }else{
         flow = 3 - i;
       }
-      if(num[flow] == -1){
-        digitalWrite(nodePin[flow], 1);
-        digitalWrite(segPin[6], 0);
-        delay(1);
-        digitalWrite(nodePin[flow], 0);
-        digitalWrite(segPin[6], 1);
-      }else{
+      digitalWrite(nodePin[i], 1);
+      for(j=0; j<7; j++){
+        if(angle){
+          digitalWrite(segPin[j], !bitRead(patternTRUE[num[flow]],j));
+        }else{
+          digitalWrite(segPin[j], !bitRead(patternFALSE[num[flow]], j));
+        }
+      }
+      delay(1);
+      for(k=0; k<7; k++){
+        digitalWrite(segPin[k], 1);
+      }
+      digitalWrite(nodePin[i], 0);
+    }
+  }else{
+    if(state == 0){
+      for(i=0; i<4; i++){
+        if(angle){
+          flow = i;
+        }else{
+          flow = 3 - i;
+        }
+        if(flow == 0){
+          continue;
+        }
         digitalWrite(nodePin[i], 1);
         for(j=0; j<7; j++){
           if(angle){
@@ -359,40 +377,6 @@ void Display::printClockSetting(int hour2, int hour1, int minute2, int minute1, 
         }
         digitalWrite(nodePin[i], 0);
       }
-    }
-  }else{
-    if(state == 0){
-      for(i=0; i<4; i++){
-        if(angle){
-          flow = i;
-        }else{
-          flow = 3 - i;
-        }
-        if(flow == 0){
-          continue;
-        }
-        if(num[flow] == -1){
-          digitalWrite(nodePin[flow], 1);
-          digitalWrite(segPin[6], 0);
-          delay(1);
-          digitalWrite(nodePin[flow], 0);
-          digitalWrite(segPin[6], 1);
-        }else{
-          digitalWrite(nodePin[i], 1);
-          for(j=0; j<7; j++){
-            if(angle){
-              digitalWrite(segPin[j], !bitRead(patternTRUE[num[flow]],j));
-            }else{
-              digitalWrite(segPin[j], !bitRead(patternFALSE[num[flow]], j));
-            }
-          }
-          delay(1);
-          for(k=0; k<7; k++){
-            digitalWrite(segPin[k], 1);
-          }
-          digitalWrite(nodePin[i], 0);
-        }
-      }
     }else if(state == 1){
       for(i=0; i<4; i++){
         if(angle){
@@ -403,27 +387,19 @@ void Display::printClockSetting(int hour2, int hour1, int minute2, int minute1, 
         if(flow == 1){
           continue;
         }
-        if(num[flow] == -1){
-          digitalWrite(nodePin[flow], 1);
-          digitalWrite(segPin[6], 0);
-          delay(1);
-          digitalWrite(nodePin[flow], 0);
-          digitalWrite(segPin[6], 1);
-        }else{
-          digitalWrite(nodePin[i], 1);
-          for(j=0; j<7; j++){
-            if(angle){
-              digitalWrite(segPin[j], !bitRead(patternTRUE[num[flow]],j));
-            }else{
-              digitalWrite(segPin[j], !bitRead(patternFALSE[num[flow]], j));
-            }
+        digitalWrite(nodePin[i], 1);
+        for(j=0; j<7; j++){
+          if(angle){
+            digitalWrite(segPin[j], !bitRead(patternTRUE[num[flow]],j));
+          }else{
+            digitalWrite(segPin[j], !bitRead(patternFALSE[num[flow]], j));
           }
-          delay(1);
-          for(k=0; k<7; k++){
-            digitalWrite(segPin[k], 1);
-          }
-          digitalWrite(nodePin[i], 0);
         }
+        delay(1);
+        for(k=0; k<7; k++){
+          digitalWrite(segPin[k], 1);
+        }
+        digitalWrite(nodePin[i], 0);
       }
     }else if(state == 2){
       for(i=0; i<4; i++){
@@ -435,27 +411,19 @@ void Display::printClockSetting(int hour2, int hour1, int minute2, int minute1, 
         if(flow == 2){
           continue;
         }
-        if(num[flow] == -1){
-          digitalWrite(nodePin[flow], 1);
-          digitalWrite(segPin[6], 0);
-          delay(1);
-          digitalWrite(nodePin[flow], 0);
-          digitalWrite(segPin[6], 1);
-        }else{
-          digitalWrite(nodePin[i], 1);
-          for(j=0; j<7; j++){
-            if(angle){
-              digitalWrite(segPin[j], !bitRead(patternTRUE[num[flow]],j));
-            }else{
-              digitalWrite(segPin[j], !bitRead(patternFALSE[num[flow]], j));
-            }
+        digitalWrite(nodePin[i], 1);
+        for(j=0; j<7; j++){
+          if(angle){
+            digitalWrite(segPin[j], !bitRead(patternTRUE[num[flow]],j));
+          }else{
+            digitalWrite(segPin[j], !bitRead(patternFALSE[num[flow]], j));
           }
-          delay(1);
-          for(k=0; k<7; k++){
-            digitalWrite(segPin[k], 1);
-          }
-          digitalWrite(nodePin[i], 0);
         }
+        delay(1);
+        for(k=0; k<7; k++){
+          digitalWrite(segPin[k], 1);
+        }
+        digitalWrite(nodePin[i], 0);
       }
     }else if(state == 3){
       for(i=0; i<4; i++){
@@ -467,27 +435,19 @@ void Display::printClockSetting(int hour2, int hour1, int minute2, int minute1, 
         if(flow == 3){
           continue;
         }
-        if(num[flow] == -1){
-          digitalWrite(nodePin[flow], 1);
-          digitalWrite(segPin[6], 0);
-          delay(1);
-          digitalWrite(nodePin[flow], 0);
-          digitalWrite(segPin[6], 1);
-        }else{
-          digitalWrite(nodePin[i], 1);
-          for(j=0; j<7; j++){
-            if(angle){
-              digitalWrite(segPin[j], !bitRead(patternTRUE[num[flow]],j));
-            }else{
-              digitalWrite(segPin[j], !bitRead(patternFALSE[num[flow]], j));
-            }
+        digitalWrite(nodePin[i], 1);
+        for(j=0; j<7; j++){
+          if(angle){
+            digitalWrite(segPin[j], !bitRead(patternTRUE[num[flow]],j));
+          }else{
+            digitalWrite(segPin[j], !bitRead(patternFALSE[num[flow]], j));
           }
-          delay(1);
-          for(k=0; k<7; k++){
-            digitalWrite(segPin[k], 1);
-          }
-          digitalWrite(nodePin[i], 0);
         }
+        delay(1);
+        for(k=0; k<7; k++){
+          digitalWrite(segPin[k], 1);
+        }
+        digitalWrite(nodePin[i], 0);
       }
     }
   }
@@ -768,10 +728,10 @@ void Display::printFlashAnswer(int num4, int num3, int num2, int num1, bool angl
         flow = 3 - i;
       }
       if(num[flow] == -1){
-        digitalWrite(nodePin[flow], 1);
+        digitalWrite(nodePin[i], 1);
         digitalWrite(segPin[6], 0);
         delay(1);
-        digitalWrite(nodePin[flow], 0);
+        digitalWrite(nodePin[i], 0);
         digitalWrite(segPin[6], 1);
       }else{
         digitalWrite(nodePin[i], 1);
@@ -801,10 +761,10 @@ void Display::printFlashAnswer(int num4, int num3, int num2, int num1, bool angl
           continue;
         }
         if(num[flow] == -1){
-          digitalWrite(nodePin[flow], 1);
+          digitalWrite(nodePin[i], 1);
           digitalWrite(segPin[6], 0);
           delay(1);
-          digitalWrite(nodePin[flow], 0);
+          digitalWrite(nodePin[i], 0);
           digitalWrite(segPin[6], 1);
         }else{
           digitalWrite(nodePin[i], 1);
@@ -833,10 +793,10 @@ void Display::printFlashAnswer(int num4, int num3, int num2, int num1, bool angl
           continue;
         }
         if(num[flow] == -1){
-          digitalWrite(nodePin[flow], 1);
+          digitalWrite(nodePin[i], 1);
           digitalWrite(segPin[6], 0);
           delay(1);
-          digitalWrite(nodePin[flow], 0);
+          digitalWrite(nodePin[i], 0);
           digitalWrite(segPin[6], 1);
         }else{
           digitalWrite(nodePin[i], 1);
@@ -865,10 +825,10 @@ void Display::printFlashAnswer(int num4, int num3, int num2, int num1, bool angl
           continue;
         }
         if(num[flow] == -1){
-          digitalWrite(nodePin[flow], 1);
+          digitalWrite(nodePin[i], 1);
           digitalWrite(segPin[6], 0);
           delay(1);
-          digitalWrite(nodePin[flow], 0);
+          digitalWrite(nodePin[i], 0);
           digitalWrite(segPin[6], 1);
         }else{
           digitalWrite(nodePin[i], 1);
@@ -897,10 +857,10 @@ void Display::printFlashAnswer(int num4, int num3, int num2, int num1, bool angl
           continue;
         }
         if(num[flow] == -1){
-          digitalWrite(nodePin[flow], 1);
+          digitalWrite(nodePin[i], 1);
           digitalWrite(segPin[6], 0);
           delay(1);
-          digitalWrite(nodePin[flow], 0);
+          digitalWrite(nodePin[i], 0);
           digitalWrite(segPin[6], 1);
         }else{
           digitalWrite(nodePin[i], 1);

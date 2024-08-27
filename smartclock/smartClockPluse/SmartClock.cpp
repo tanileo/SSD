@@ -8,7 +8,7 @@ SmartClock::SmartClock()
 }
 
 void SmartClock::init() {
-  while (!Serial) delay(10);
+  // while (!Serial) delay(10);
   display.init();
   tempHumid.init();
   clock.init();
@@ -278,73 +278,146 @@ void SmartClock::TS1_Push() {
   now = millis();
   if (now - chattaringTime >= 200) {
     chattaringTime = millis();
-    switch (currentMode) {
-      case Mode::CLOCK:
-        switch(clock.getState()){
-          case 4:
-            music.playOdeToJoy();
-            break;
-          case 0:
-            clock.setSetHour(2, 1);
-            break;
-          case 1:
-            clock.setSetHour(1, 1);
-            break;
-          case 2:
-            clock.setSetMinute(2, 1);
-            break;
-          case 3:
-            clock.setSetMinute(1, 1);
-            break;
-        }
-        break;
-      case Mode::TEMPERATURE:
-
-        break;
-      case Mode::TIMER:
-        // speaker.playTimerButtonSound();
-        if (timer.state == 0) {
-          timer.minutes++;
-          if (timer.minutes == 60) {
-            timer.minutes = 0;
+    if(angle){
+      switch (currentMode) {
+        case Mode::CLOCK:
+          switch(clock.getState()){
+            case 4:
+              music.playOdeToJoy();
+              break;
+            case 0:
+              clock.setSetHour(2, 1);
+              break;
+            case 1:
+              clock.setSetHour(1, 1);
+              break;
+            case 2:
+              clock.setSetMinute(2, 1);
+              break;
+            case 3:
+              clock.setSetMinute(1, 1);
+              break;
           }
-        } else if (timer.state == 1) {
-          timer.seconds++;
-          if (timer.seconds == 60) {
-            timer.seconds = 0;
+          break;
+        case Mode::TEMPERATURE:
+
+          break;
+        case Mode::TIMER:
+          // speaker.playTimerButtonSound();
+          if (timer.state == 0) {
+            timer.minutes++;
+            if (timer.minutes == 60) {
+              timer.minutes = 0;
+            }
+          } else if (timer.state == 1) {
+            timer.seconds++;
+            if (timer.seconds == 60) {
+              timer.seconds = 0;
+            }
           }
-        }
-        break;
-      case Mode::CHINCHIRO:
+          break;
+        case Mode::CHINCHIRO:
 
-        break;
-      case Mode::SLOT:
+          break;
+        case Mode::SLOT:
 
-        break;
-      case Mode::FLASH_CALCULATION:
-        switch (flashCalc.getState()) {
-          case 0:
-            flashCalc.setDifficult(1);
-            break;
-          case 1:
-            flashCalc.setSpeed(1);
-            break;
-          case 2:
-            break;
-          case 3:
-            flashCalc.setPluseMainuse();
-            break;
-          case 4:
-            flashCalc.setUserAnswer(2, 1);
-            break;
-          case 5:
-            flashCalc.setUserAnswer(1, 1);
-            break;
-          case 6:
-            flashCalc.setUserAnswer(0, 1);
-            break;
-        }
-        break;
+          break;
+        case Mode::FLASH_CALCULATION:
+          switch (flashCalc.getState()) {
+            case 0:
+              flashCalc.setDifficult(1);
+              break;
+            case 1:
+              flashCalc.setSpeed(1);
+              break;
+            case 2:
+              break;
+            case 3:
+              flashCalc.setPluseMainuse();
+              break;
+            case 4:
+              flashCalc.setUserAnswer(2, 1);
+              break;
+            case 5:
+              flashCalc.setUserAnswer(1, 1);
+              break;
+            case 6:
+              flashCalc.setUserAnswer(0, 1);
+              break;
+          }
+          break;
+      }
+    }else{
+      switch (currentMode) {
+        case Mode::CLOCK:
+          // music.playGreensleeves();
+          switch(clock.getState()){
+            case 4:
+              music.playSymphonyNo5();
+              break;
+            case 0:
+              clock.setSetHour(2, -1);
+              break;
+            case 1:
+              clock.setSetHour(1, -1);
+              break;
+            case 2:
+              clock.setSetMinute(2, -1);
+              break;
+            case 3:
+              clock.setSetMinute(1, -1);
+              break;
+          }
+          break;
+        case Mode::TEMPERATURE:
+
+          break;
+        case Mode::TIMER:
+          // speaker.playTimerButtonSound();
+          if (timer.state == 0) {
+            timer.minutes--;
+            if (timer.minutes == -1) {
+              timer.minutes = 59;
+            }
+          } else if (timer.state == 1) {
+            timer.seconds--;
+            if (timer.seconds == -1) {
+              timer.seconds = 59;
+            }
+          }
+
+          break;
+        case Mode::CHINCHIRO:
+
+          break;
+        case Mode::SLOT:
+
+          break;
+        case Mode::FLASH_CALCULATION:
+          switch (flashCalc.getState()) {
+            case 0:
+              flashCalc.setDifficult(-1);
+              break;
+            case 1:
+              flashCalc.setSpeed(-1);
+              break;
+            case 2:
+              break;
+            case 3:
+              flashCalc.setPluseMainuse();
+              break;
+            case 4:
+              flashCalc.setUserAnswer(2, -1);
+              break;
+            case 5:
+              flashCalc.setUserAnswer(1, -1);
+              break;
+            case 6:
+              flashCalc.setUserAnswer(0, -1);
+              break;
+          }
+          break;
+      }
     }
   }
 }
@@ -354,7 +427,7 @@ void SmartClock::TS2_Push() {
   if (now - chattaringTime >= 200) {
     chattaringTime = millis();
     switch (currentMode) {
-      case Mode::CLOCK:  
+      case Mode::CLOCK:
         switch(clock.getState()){
           case 4:
             music.playFurElise();
@@ -443,75 +516,146 @@ void SmartClock::TS3_Push() {
   now = millis();
   if (now - chattaringTime >= 200) {
     chattaringTime = millis();
-    switch (currentMode) {
-      case Mode::CLOCK:
-        // music.playGreensleeves();
-        switch(clock.getState()){
-          case 4:
-            music.playSymphonyNo5();
-            break;
-          case 0:
-            clock.setSetHour(2, -1);
-            break;
-          case 1:
-            clock.setSetHour(1, -1);
-            break;
-          case 2:
-            clock.setSetMinute(2, -1);
-            break;
-          case 3:
-            clock.setSetMinute(1, -1);
-            break;
-        }
-        break;
-      case Mode::TEMPERATURE:
-
-        break;
-      case Mode::TIMER:
-        // speaker.playTimerButtonSound();
-        if (timer.state == 0) {
-          timer.minutes--;
-          if (timer.minutes == -1) {
-            timer.minutes = 59;
+    if(!angle){
+      switch (currentMode) {
+        case Mode::CLOCK:
+          switch(clock.getState()){
+            case 4:
+              music.playOdeToJoy();
+              break;
+            case 0:
+              clock.setSetHour(2, 1);
+              break;
+            case 1:
+              clock.setSetHour(1, 1);
+              break;
+            case 2:
+              clock.setSetMinute(2, 1);
+              break;
+            case 3:
+              clock.setSetMinute(1, 1);
+              break;
           }
-        } else if (timer.state == 1) {
-          timer.seconds--;
-          if (timer.seconds == -1) {
-            timer.seconds = 59;
+          break;
+        case Mode::TEMPERATURE:
+
+          break;
+        case Mode::TIMER:
+          // speaker.playTimerButtonSound();
+          if (timer.state == 0) {
+            timer.minutes++;
+            if (timer.minutes == 60) {
+              timer.minutes = 0;
+            }
+          } else if (timer.state == 1) {
+            timer.seconds++;
+            if (timer.seconds == 60) {
+              timer.seconds = 0;
+            }
           }
-        }
+          break;
+        case Mode::CHINCHIRO:
 
-        break;
-      case Mode::CHINCHIRO:
+          break;
+        case Mode::SLOT:
 
-        break;
-      case Mode::SLOT:
+          break;
+        case Mode::FLASH_CALCULATION:
+          switch (flashCalc.getState()) {
+            case 0:
+              flashCalc.setDifficult(1);
+              break;
+            case 1:
+              flashCalc.setSpeed(1);
+              break;
+            case 2:
+              break;
+            case 3:
+              flashCalc.setPluseMainuse();
+              break;
+            case 4:
+              flashCalc.setUserAnswer(2, 1);
+              break;
+            case 5:
+              flashCalc.setUserAnswer(1, 1);
+              break;
+            case 6:
+              flashCalc.setUserAnswer(0, 1);
+              break;
+          }
+          break;
+      }
+    }else{
+      switch (currentMode) {
+        case Mode::CLOCK:
+          // music.playGreensleeves();
+          switch(clock.getState()){
+            case 4:
+              music.playSymphonyNo5();
+              break;
+            case 0:
+              clock.setSetHour(2, -1);
+              break;
+            case 1:
+              clock.setSetHour(1, -1);
+              break;
+            case 2:
+              clock.setSetMinute(2, -1);
+              break;
+            case 3:
+              clock.setSetMinute(1, -1);
+              break;
+          }
+          break;
+        case Mode::TEMPERATURE:
 
-        break;
-      case Mode::FLASH_CALCULATION:
-        switch (flashCalc.getState()) {
-          case 0:
-            flashCalc.setDifficult(-1);
-            break;
-          case 1:
-            flashCalc.setSpeed(-1);
-            break;
-          case 2:
-            break;
-          case 3:
-            flashCalc.setPluseMainuse();
-            break;
-          case 4:
-            flashCalc.setUserAnswer(2, -1);
-            break;
-          case 5:
-            flashCalc.setUserAnswer(1, -1);
-            break;
-          case 6:
-            flashCalc.setUserAnswer(0, -1);
-            break;
-        }
-        break;
+          break;
+        case Mode::TIMER:
+          // speaker.playTimerButtonSound();
+          if (timer.state == 0) {
+            timer.minutes--;
+            if (timer.minutes == -1) {
+              timer.minutes = 59;
+            }
+          } else if (timer.state == 1) {
+            timer.seconds--;
+            if (timer.seconds == -1) {
+              timer.seconds = 59;
+            }
+          }
+
+          break;
+        case Mode::CHINCHIRO:
+
+          break;
+        case Mode::SLOT:
+
+          break;
+        case Mode::FLASH_CALCULATION:
+          switch (flashCalc.getState()) {
+            case 0:
+              flashCalc.setDifficult(-1);
+              break;
+            case 1:
+              flashCalc.setSpeed(-1);
+              break;
+            case 2:
+              break;
+            case 3:
+              flashCalc.setPluseMainuse();
+              break;
+            case 4:
+              flashCalc.setUserAnswer(2, -1);
+              break;
+            case 5:
+              flashCalc.setUserAnswer(1, -1);
+              break;
+            case 6:
+              flashCalc.setUserAnswer(0, -1);
+              break;
+          }
+          break;
+      }
     }
   }
 }

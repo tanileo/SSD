@@ -16,7 +16,7 @@ void setup() {
   smartClock.mode1 = Mode::CLOCK;
   smartClock.mode2 = Mode::TIMER;
   smartClock.mode3 = Mode::TEMPERATURE;
-  smartClock.mode4 = Mode::CHINCHIRO;
+  smartClock.mode4 = Mode::FLASH_CALCULATION;
 }
 
 void loop() {
